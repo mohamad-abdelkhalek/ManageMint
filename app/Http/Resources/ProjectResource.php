@@ -25,8 +25,8 @@ class ProjectResource extends JsonResource
                             ->format('Y-m-d'),
             'status' => $this->status,
             'image_path' => $this->image_path,
-            'createdBy' => $this->createdBy,
-            'updatedBy' => $this->updatedBy,
+            'createdBy' => new UserResource($this->createdBy),
+            'updatedBy' => new UserResource($this->updatedBy),
         ];
     }
 }
