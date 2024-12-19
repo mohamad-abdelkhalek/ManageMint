@@ -49,20 +49,28 @@ export default function Index({ auth, projects }) {
                       </td>
                       <td className="px-3 py-2">{project.name}</td>
                       <td className="px-3 py-2">{project.status}</td>
-                      <td className="px-3 py-2 text-nowrap">{project.created_at}</td>
-                      <td className="px-3 py-2 text-nowrap">{project.due_date}</td>
-                      <td className="px-3 py-2">{project.createdBy.name}</td>                  
+                      <td className="px-3 py-2 text-nowrap">
+                        {project.created_at}
+                      </td>
+                      <td className="px-3 py-2 text-nowrap">
+                        {project.due_date}
+                      </td>
+                      <td className="px-3 py-2">{project.createdBy.name}</td>
                       <td className="px-3 py-2">
-                        <Link href={route('project.edit', project.id)}
-                        className="font-medium text-blue-600 dark:text-blue-500
-                        hover:underline mx-1">
-                        Edit
+                        <Link
+                          href={route("project.edit", project.id)}
+                          className="font-medium text-blue-600 dark:text-blue-500
+                        hover:underline mx-1"
+                        >
+                          Edit
                         </Link>
-                        <Link href={route('project.destroy', project.id)}
-                        className="font-medium text-red-600 dark:text-red-500
-                        hover:underline mx-1">
-                        Delete
-                        </Link>         
+                        <Link
+                          href={route("project.destroy", project.id)}
+                          className="font-medium text-red-600 dark:text-red-500
+                        hover:underline mx-1"
+                        >
+                          Delete
+                        </Link>
                       </td>
                     </tr>
                   ))}
