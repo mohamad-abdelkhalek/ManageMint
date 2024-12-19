@@ -1,13 +1,30 @@
 import Pagination from "@/Components/Pagination";
+import SelectInput from "@/Components/SelectInput";
 import TextInput from "@/Components/TextInput";
 import {
   PROJECT_STATUS_CLASS_MAP,
   PROJECT_STATUS_TEXT_MAP,
 } from "@/constants.js";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { Head, Link } from "@inertiajs/react";
+import { Head, Link, router } from "@inertiajs/react";
 
-export default function Index({ auth, projects }) {
+export default function Index({ auth, projects, queryParams }) {
+  queryParams = queryParams || {};
+  const searchFieldChanged = (name, value) => {
+    if (value) {
+      queryParams[name] = value;
+    } else {
+      delete queryParams[name];
+    }
+
+    router.get(route("project.index"), queryParams);
+  };
+
+  const onKeyPress = (name, e) => {
+    if (e.key !== "Enter") return;
+    searchFieldChanged(name, e.target.value);
+  };
+
   return (
     <AuthenticatedLayout
       user={auth.user}
@@ -52,10 +69,29 @@ export default function Index({ auth, projects }) {
                     <th className="px-3 py-3"></th>
                     <th className="px-3 py-3"></th>
                     <th className="px-3 py-3">
-                      <TextInput/>
+                      <TextInput
+                        className="w-full"
+                        defaultValue={queryParams.name}
+                        placeholder="Project Name"
+                        onBlur={(e) =>
+                          searchFieldChanged("name", e.target.value)
+                        }
+                        onKeyDown={(e) => onKeyPress("name", e)} // Correct parameter passing
+                      />
                     </th>
                     <th className="px-3 py-3">
-
+                      <SelectInput
+                        className="w-full"
+                        defaultValue={queryParams.status}
+                        onChange={(e) =>
+                          searchFieldChanged("status", e.target.value)
+                        }
+                      >
+                        <option value="">Select Status</option>
+                        <option value="completed">Completed</option>
+                        <option value="in_progress">In Progress</option>
+                        <option value="pending">Pending</option>
+                      </SelectInput>
                     </th>
                     <th className="px-3 py-3"></th>
                     <th className="px-3 py-3"></th>

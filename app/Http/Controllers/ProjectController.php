@@ -16,12 +16,21 @@ class ProjectController extends Controller
     {
         $query = Project::query();
 
+        if (request("name")) {
+            $query->where("name","like","%". request("name") ."%");
+        }
+
+        if (request("status")) {
+            $query->where("status", request("status"));
+        }
+
         // ->onEachSide(1) control how many links (pages)
         // to show on each side of the current page when paginating.
         $projects = $query->paginate(10);
         
         return inertia("Project/Index", [
             "projects" => ProjectResource::collection($projects),
+            'queryParams' => request()->query() ?: null,
         ]);
     }
 
