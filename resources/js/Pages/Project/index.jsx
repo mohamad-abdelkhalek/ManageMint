@@ -38,12 +38,23 @@ export default function Index({ auth, projects }) {
                   </tr>
                 </thead>
                 <tbody>
-                  <tr
-                    className="bg-white border-b dark:bg-gray-800
+                  {projects.data.map((project) => (
+                    <tr
+                      className="bg-white border-b dark:bg-gray-800
                   dark:border-gray-700"
-                  >
-                    <td></td>
-                  </tr>
+                    >
+                      <td className="px-3 py-2">{project.id}</td>
+                      <td className="px-3 py-2">
+                        <img src="{project.image_path}" alt="Project Image" />
+                      </td>
+                      <td className="px-3 py-2">{project.name}</td>
+                      <td className="px-3 py-2">{project.status}</td>
+                      <td className="px-3 py-2">{project.created_at}</td>
+                      <td className="px-3 py-2">{project.due_date}</td>
+                      <td className="px-3 py-2">{project.createdBy.name}</td>                  
+                      <td className="px-3 py-2"></td>
+                    </tr>
+                  ))}
                 </tbody>
               </table>
             </div>
