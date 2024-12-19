@@ -1,5 +1,5 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { Head } from "@inertiajs/react";
+import { Head, Link } from "@inertiajs/react";
 
 export default function Index({ auth, projects }) {
   return (
@@ -24,17 +24,17 @@ export default function Index({ auth, projects }) {
                 <thead
                   className="text-xs text-gray-700 uppercase bg-gray-50 
                   dark:bg-gray-700 dark:text-gray-400
-                  border-b-2 border-gray-500"
+                  border-b-3 border-gray-500"
                 >
                   <tr className="text-nowrap">
-                    <th className="px-3 py-2">ID</th>
-                    <th className="px-3 py-2">Image</th>
-                    <th className="px-3 py-2">Name</th>
-                    <th className="px-3 py-2">Status</th>
-                    <th className="px-3 py-2">Create Date</th>
-                    <th className="px-3 py-2">Due Date</th>
-                    <th className="px-3 py-2">Created By</th>
-                    <th className="px-3 py-2">Actions</th>
+                    <th className="px-3 py-3">ID</th>
+                    <th className="px-3 py-3">Image</th>
+                    <th className="px-3 py-3">Name</th>
+                    <th className="px-3 py-3">Status</th>
+                    <th className="px-3 py-3">Create Date</th>
+                    <th className="px-3 py-3">Due Date</th>
+                    <th className="px-3 py-3">Created By</th>
+                    <th className="px-3 py-3 text-right">Actions</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -45,14 +45,25 @@ export default function Index({ auth, projects }) {
                     >
                       <td className="px-3 py-2">{project.id}</td>
                       <td className="px-3 py-2">
-                        <img src="{project.image_path}" alt="Project Image" />
+                        <img src={project.image_path} style={{ width: 60 }} />
                       </td>
                       <td className="px-3 py-2">{project.name}</td>
                       <td className="px-3 py-2">{project.status}</td>
-                      <td className="px-3 py-2">{project.created_at}</td>
-                      <td className="px-3 py-2">{project.due_date}</td>
+                      <td className="px-3 py-2 text-nowrap">{project.created_at}</td>
+                      <td className="px-3 py-2 text-nowrap">{project.due_date}</td>
                       <td className="px-3 py-2">{project.createdBy.name}</td>                  
-                      <td className="px-3 py-2"></td>
+                      <td className="px-3 py-2">
+                        <Link href={route('project.edit', project.id)}
+                        className="font-medium text-blue-600 dark:text-blue-500
+                        hover:underline mx-1">
+                        Edit
+                        </Link>
+                        <Link href={route('project.destroy', project.id)}
+                        className="font-medium text-red-600 dark:text-red-500
+                        hover:underline mx-1">
+                        Delete
+                        </Link>         
+                      </td>
                     </tr>
                   ))}
                 </tbody>
