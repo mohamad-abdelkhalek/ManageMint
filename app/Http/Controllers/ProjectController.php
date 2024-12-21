@@ -16,8 +16,11 @@ class ProjectController extends Controller
     {
         $query = Project::query();
 
+        $sortField = request("sort_field", 'created_at');
+        $sortDirection = request("sort_direction", "desc");
+
         if (request("name")) {
-            $query->where("name","like","%". request("name") ."%");
+            $query->where("name", "like", "%" . request("name") . "%");
         }
 
         if (request("status")) {
@@ -26,8 +29,9 @@ class ProjectController extends Controller
 
         // ->onEachSide(1) control how many links (pages)
         // to show on each side of the current page when paginating.
-        $projects = $query->paginate(10);
-        
+        $projects = $query->orderBy($sortField, $sortDirection)
+            ->paginate(10);
+
         return inertia("Project/Index", [
             "projects" => ProjectResource::collection($projects),
             'queryParams' => request()->query() ?: null,
