@@ -70,12 +70,27 @@ export default function Index({ auth, projects, queryParams }) {
                       <th onClick={(e) => sortChanged("id")}>
                         <div
                           className="px-3 py-3 flex items-center
-                        justify-between gap-1"
+                        justify-between gap-1 cursor-pointer"
                         >
                           ID
                           <div>
-                            <ChevronUpIcon className="w-4" />
-                            <ChevronDownIcon className="w-4 -mt-2" />
+                            <ChevronUpIcon
+                              className={
+                                "w-4 " +
+                                (queryParams.sort_field === "id" &&
+                                queryParams.sort_direction === "asc"
+                                  ? "text-white"
+                                  : "")
+                              }
+                            />
+                            <ChevronDownIcon 
+                            className={
+                                "w-4 -mt-2 " +
+                                (queryParams.sort_field === "id" &&
+                                queryParams.sort_direction === "desc"
+                                  ? "text-white"
+                                  : "")
+                              } />
                           </div>
                         </div>
                       </th>
@@ -83,7 +98,7 @@ export default function Index({ auth, projects, queryParams }) {
                       <th onClick={(e) => sortChanged("name")}>
                         <div
                           className="px-3 py-3 flex items-center
-                        justify-between gap-1"
+                        justify-between gap-1 cursor-pointer"
                         >
                           Name
                           <div>
@@ -95,7 +110,7 @@ export default function Index({ auth, projects, queryParams }) {
                       <th onClick={(e) => sortChanged("status")}>
                         <div
                           className="px-3 py-3 flex items-center
-                        justify-between gap-1"
+                        justify-between gap-1 cursor-pointer"
                         >
                           Status
                           <div>
@@ -107,7 +122,7 @@ export default function Index({ auth, projects, queryParams }) {
                       <th onClick={(e) => sortChanged("created_at")}>
                         <div
                           className="px-3 py-3 flex items-center
-                        justify-between gap-1"
+                        justify-between gap-1 cursor-pointer"
                         >
                           Create Date
                           <div>
@@ -119,7 +134,7 @@ export default function Index({ auth, projects, queryParams }) {
                       <th onClick={(e) => sortChanged("due_date")}>
                         <div
                           className="px-3 py-3 flex items-center
-                        justify-between gap-1"
+                        justify-between gap-1 cursor-pointer"
                         >
                           Due Date
                           <div>
