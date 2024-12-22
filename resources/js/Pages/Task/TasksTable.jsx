@@ -5,36 +5,40 @@ import { TASK_STATUS_CLASS_MAP, TASK_STATUS_TEXT_MAP } from "@/constants.js";
 import { Link, router } from "@inertiajs/react";
 import TableHeading from "@/Components/TableHeading";
 
-export default function TasksTable({ tasks, queryParams = null }) {
-    queryParams = queryParams || {};
-    const searchFieldChanged = (name, value) => {
-        if (value) {
-          queryParams[name] = value;
-        } else {
-          delete queryParams[name];
-        }
-    
-        router.get(route("task.index"), queryParams);
-      };
-    
-      const onKeyPress = (name, e) => {
-        if (e.key !== "Enter") return;
-        searchFieldChanged(name, e.target.value);
-      };
-    
-      const sortChanged = (name) => {
-        if (name === queryParams.sort_field) {
-          // Toggle sort direction
-          queryParams.sort_direction =
-            queryParams.sort_direction === "asc" ? "desc" : "asc";
-        } else {
-          // Set new sort field and default direction
-          queryParams.sort_field = name;
-          queryParams.sort_direction = "asc";
-        }
-        // Perform navigation or re-fetch the sorted data
-        router.get(route("task.index"), queryParams);
-      };
+export default function TasksTable({
+  tasks,
+  queryParams = null,
+  hideProjectColumn = false,
+}) {
+  queryParams = queryParams || {};
+  const searchFieldChanged = (name, value) => {
+    if (value) {
+      queryParams[name] = value;
+    } else {
+      delete queryParams[name];
+    }
+
+    router.get(route("task.index"), queryParams);
+  };
+
+  const onKeyPress = (name, e) => {
+    if (e.key !== "Enter") return;
+    searchFieldChanged(name, e.target.value);
+  };
+
+  const sortChanged = (name) => {
+    if (name === queryParams.sort_field) {
+      // Toggle sort direction
+      queryParams.sort_direction =
+        queryParams.sort_direction === "asc" ? "desc" : "asc";
+    } else {
+      // Set new sort field and default direction
+      queryParams.sort_field = name;
+      queryParams.sort_direction = "asc";
+    }
+    // Perform navigation or re-fetch the sorted data
+    router.get(route("task.index"), queryParams);
+  };
 
   return (
     <>
@@ -58,6 +62,10 @@ export default function TasksTable({ tasks, queryParams = null }) {
                 ID
               </TableHeading>
               <th className="px-3 py-3">Image</th>
+              {!hideProjectColumn && (
+                <th className="px-3 py-3">Project Name</th>
+              )}
+
               <TableHeading
                 name="name"
                 sort_field={queryParams.sort_field}
@@ -102,6 +110,7 @@ export default function TasksTable({ tasks, queryParams = null }) {
             <tr className="text-nowrap">
               <th className="px-3 py-3"></th>
               <th className="px-3 py-3"></th>
+              {!hideProjectColumn && <th className="px-3 py-3"></th>}
               <th className="px-3 py-3">
                 <TextInput
                   className="w-full"
@@ -140,6 +149,9 @@ export default function TasksTable({ tasks, queryParams = null }) {
                 <td className="px-3 py-2">
                   <img src={task.image_path} style={{ width: 60 }} />
                 </td>
+                {!hideProjectColumn && (
+                  <td className="px-3 py-2">{task.project.name}</td>
+                )}
                 <td className="px-3 py-2">{task.name}</td>
                 <td className="px-3 py-2">
                   <span
