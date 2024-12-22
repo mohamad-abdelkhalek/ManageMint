@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests;
 
+use App\Enums\ProjectStatus;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreProjectRequest extends FormRequest
 {
@@ -11,7 +13,7 @@ class StoreProjectRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +24,10 @@ class StoreProjectRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            "name" => ["required", "max:255"],
+            "description" => ["nullable", "string"],  // Made nullable as description can be empty
+            "due_date" => ["nullable", "date"],  // Optional date field
+            "status" => ["required", Rule::enum(ProjectStatus::class)], // enum validation
         ];
     }
 }
