@@ -25,6 +25,7 @@ class StoreProjectRequest extends FormRequest
     {
         return [
             "name" => ["required", "max:255"],
+            "image" => ["nullable", "image"],
             "description" => ["nullable", "string"],  // Made nullable as description can be empty
             "due_date" => ["nullable", "date"],  // Optional date field
             "status" => ["required", Rule::enum(ProjectStatus::class)], // enum validation
