@@ -32,11 +32,15 @@ export default function Show({ auth, project, tasks, queryParams }) {
                 <div>
                   <div>
                     <label className="font-bold text-lg">Project ID</label>
-                    <p className="mt-1 text-gray-600 dark:text-gray-400">{project.id}</p>
+                    <p className="mt-1 text-gray-600 dark:text-gray-400">
+                      {project.id}
+                    </p>
                   </div>
                   <div className="mt-4">
                     <label className="font-bold text-lg">Project Name</label>
-                    <p className="mt-1 text-gray-600 dark:text-gray-400">{project.name}</p>
+                    <p className="mt-1 text-gray-600 dark:text-gray-400">
+                      {project.name}
+                    </p>
                   </div>
 
                   <div className="mt-4">
@@ -53,28 +57,38 @@ export default function Show({ auth, project, tasks, queryParams }) {
                   </div>
                   <div className="mt-4">
                     <label className="font-bold text-lg">Created By</label>
-                    <p className="mt-1 text-gray-600 dark:text-gray-400">{project.createdBy.name}</p>
+                    <p className="mt-1 text-gray-600 dark:text-gray-400">
+                      {project.createdBy.name}
+                    </p>
                   </div>
                 </div>
                 <div>
                   <div>
                     <label className="font-bold text-lg">Due Date</label>
-                    <p className="mt-1 mb-4 text-gray-600 dark:text-gray-400">{project.due_date}</p>
+                    <p className="mt-1 mb-4 text-gray-600 dark:text-gray-400">
+                      {project.due_date}
+                    </p>
                   </div>
                   <div>
                     <label className="font-bold text-lg">Create Date</label>
-                    <p className="mt-1 mb-4 text-gray-600 dark:text-gray-400">{project.created_at}</p>
+                    <p className="mt-1 mb-4 text-gray-600 dark:text-gray-400">
+                      {project.created_at}
+                    </p>
                   </div>
                   <div>
                     <label className="font-bold text-lg">Updated By</label>
-                    <p className="mt-1 text-gray-600 dark:text-gray-400">{project.updatedBy.name}</p>
+                    <p className="mt-1 text-gray-600 dark:text-gray-400">
+                      {project.updatedBy.name}
+                    </p>
                   </div>
                 </div>
               </div>
 
               <div className="mt-4">
                 <label className="font-bold text-lg">Project Description</label>
-                <p className="mt-1 text-gray-600 dark:text-gray-400">{project.description}</p>
+                <p className="mt-1 text-gray-600 dark:text-gray-400">
+                  {project.description}
+                </p>
               </div>
             </div>
           </div>
@@ -83,16 +97,26 @@ export default function Show({ auth, project, tasks, queryParams }) {
 
       <div className="pb-12">
         <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
-          <div className="overflow-hidden bg-white shadow-sm sm:rounded-lg dark:bg-gray-800">
+          <div className="overflow-hidden bg-white shadow-sm rounded-lg dark:bg-gray-800">
             <div className="p-6 text-gray-900 dark:text-gray-100">
-              {tasks && tasks.data && tasks.data.length > 0 ? (
+              {tasks?.isLoading ? (
+                <div className="flex justify-center">
+                  <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900 dark:border-white" />
+                </div>
+              ) : tasks?.error ? (
+                <div className="text-red-500">
+                  Error loading tasks: {tasks.error.message}
+                </div>
+              ) : tasks?.data?.length > 0 ? (
                 <TasksTable
                   tasks={tasks}
                   queryParams={queryParams}
                   hideProjectColumn={true}
                 />
               ) : (
-                <p>No tasks available for this project.</p>
+                <p className="text-center text-gray-500 dark:text-gray-400">
+                  No tasks available for this project.
+                </p>
               )}
             </div>
           </div>
