@@ -59,11 +59,11 @@ export default function Show({ auth, project, tasks, queryParams }) {
                 <div>
                   <div>
                     <label className="font-bold text-lg">Due Date</label>
-                    <p className="mt-1">{project.due_date}</p>
+                    <p className="mt-1 mb-4">{project.due_date}</p>
                   </div>
                   <div>
                     <label className="font-bold text-lg">Create Date</label>
-                    <p className="mt-1">{project.created_at}</p>
+                    <p className="mt-1 mb-4">{project.created_at}</p>
                   </div>
                   <div>
                     <label className="font-bold text-lg">Updated By</label>
