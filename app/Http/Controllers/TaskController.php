@@ -30,8 +30,9 @@ class TaskController extends Controller
         // ->onEachSide(1) control how many links (pages)
         // to show on each side of the current page when paginating.
         $tasks = $query->orderBy($sortField, $sortDirection)
-            ->paginate(10);
-
+            ->paginate(10)
+            ->onEachSide(1);
+            
         return inertia("Task/Index", [
             "tasks" => TaskResource::collection($tasks),
             'queryParams' => request()->query() ?: null,
