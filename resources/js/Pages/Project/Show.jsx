@@ -32,16 +32,16 @@ export default function Show({ auth, project, tasks, queryParams }) {
                 <div>
                   <div>
                     <label className="font-bold text-lg">Project ID</label>
-                    <p className="mt-1">{project.id}</p>
+                    <p className="mt-1 text-gray-600 dark:text-gray-400">{project.id}</p>
                   </div>
                   <div className="mt-4">
                     <label className="font-bold text-lg">Project Name</label>
-                    <p className="mt-1">{project.name}</p>
+                    <p className="mt-1 text-gray-600 dark:text-gray-400">{project.name}</p>
                   </div>
 
                   <div className="mt-4">
                     <label className="font-bold text-lg">Project Status</label>
-                    <p className="mt-1">
+                    <p className="mt-1 text-gray-600 dark:text-gray-400">
                       <span
                         className={`px-2 py-1 rounded text-white ${
                           PROJECT_STATUS_CLASS_MAP[project.status]
@@ -53,28 +53,28 @@ export default function Show({ auth, project, tasks, queryParams }) {
                   </div>
                   <div className="mt-4">
                     <label className="font-bold text-lg">Created By</label>
-                    <p className="mt-1">{project.createdBy.name}</p>
+                    <p className="mt-1 text-gray-600 dark:text-gray-400">{project.createdBy.name}</p>
                   </div>
                 </div>
                 <div>
                   <div>
                     <label className="font-bold text-lg">Due Date</label>
-                    <p className="mt-1 mb-4">{project.due_date}</p>
+                    <p className="mt-1 mb-4 text-gray-600 dark:text-gray-400">{project.due_date}</p>
                   </div>
                   <div>
                     <label className="font-bold text-lg">Create Date</label>
-                    <p className="mt-1 mb-4">{project.created_at}</p>
+                    <p className="mt-1 mb-4 text-gray-600 dark:text-gray-400">{project.created_at}</p>
                   </div>
                   <div>
                     <label className="font-bold text-lg">Updated By</label>
-                    <p className="mt-1">{project.updatedBy.name}</p>
+                    <p className="mt-1 text-gray-600 dark:text-gray-400">{project.updatedBy.name}</p>
                   </div>
                 </div>
               </div>
 
               <div className="mt-4">
                 <label className="font-bold text-lg">Project Description</label>
-                <p className="mt-1">{project.description}</p>
+                <p className="mt-1 text-gray-600 dark:text-gray-400">{project.description}</p>
               </div>
             </div>
           </div>
