@@ -120,7 +120,7 @@ export default function Create({ auth }) {
                 <InputError message={errors.project_status} className="mt-2" />
               </div>
 
-              <div className="mt-4 flex justify-end gap-4">
+              <div className="mt-6 mb-0 flex justify-end gap-4">
                 <Link
                   href={route("project.index")}
                   className="bg-gray-200 py-2 px-4 text-gray-800 font-medium 
@@ -137,7 +137,6 @@ export default function Create({ auth }) {
                   Submit
                 </button>
               </div>
-              
             </form>
           </div>
         </div>
