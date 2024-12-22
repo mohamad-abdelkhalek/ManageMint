@@ -13,31 +13,42 @@ class TaskController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-    {
-        $query = Task::query();
+{
+    $validated = request()->validate([
+        'sort_field' => 'in:id,name,status,created_at',
+        'sort_direction' => 'in:asc,desc',
+        'name' => 'nullable|string',
+        'status' => 'nullable|string',
+    ]);
 
-        $sortField = request("sort_field", 'created_at');
-        $sortDirection = request("sort_direction", "desc");
+    $sortField = $validated['sort_field'] ?? 'id';
+    $sortDirection = $validated['sort_direction'] ?? 'asc';
 
-        if (request("name")) {
-            $query->where("name", "like", "%" . request("name") . "%");
-        }
+    $query = Task::query();
 
-        if (request("status")) {
-            $query->where("status", request("status"));
-        }
-
-        // ->onEachSide(1) control how many links (pages)
-        // to show on each side of the current page when paginating.
-        $tasks = $query->orderBy($sortField, $sortDirection)
-            ->paginate(10)
-            ->onEachSide(1);
-            
-        return inertia("Task/Index", [
-            "tasks" => TaskResource::collection($tasks),
-            'queryParams' => request()->query() ?: null,
-        ]);
+    if ($validated['name'] ?? false) {
+        $query->where('name', 'like', '%' . $validated['name'] . '%');
     }
+
+    if ($validated['status'] ?? false) {
+        $query->where('status', $validated['status']);
+    }
+
+    $tasks = $query->orderBy($sortField, $sortDirection)
+        ->paginate(10)
+        ->onEachSide(1);
+
+    return inertia("Task/Index", [
+        "tasks" => TaskResource::collection($tasks),
+        'queryParams' => [
+            'sort_field' => $sortField,
+            'sort_direction' => $sortDirection,
+            'name' => $validated['name'] ?? '',
+            'status' => $validated['status'] ?? '',
+        ],
+    ]);
+}
+
 
     /**
      * Show the form for creating a new resource.
