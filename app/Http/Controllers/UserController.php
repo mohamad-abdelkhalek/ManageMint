@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\UserResource;
 use App\Models\User;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
+use App\Http\Resources\UserCRUDResource;
 
 class UserController extends Controller
 {
@@ -33,7 +33,7 @@ class UserController extends Controller
             ->paginate(10);
 
         return inertia("User/Index", [
-            "users" => UserResource::collection($users),
+            "users" => UserCRUDResource::collection($users),
             'queryParams' => request()->query() ?: null,
             'success' => session('success'),
         ]);
@@ -52,7 +52,14 @@ class UserController extends Controller
      */
     public function store(StoreUserRequest $request)
     {
-        //
+        $data = $request->validated();
+        $data['password'] = bcrypt($data['password']);
+
+        // Create the project
+        User::create($data);
+
+        return to_route('user.index')
+        ->with('success', 'User was created');
     }
 
     /**

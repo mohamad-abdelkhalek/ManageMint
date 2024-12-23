@@ -55,6 +55,7 @@ export default function Create({ auth }) {
                   name="name"
                   value={data.name}
                   className="mt-1 block w-full"
+                  isFocused={true}
                   onChange={(e) => setData("name", e.target.value)}
                 />
                 <InputError message={errors.name} className="mt-2" />
@@ -69,7 +70,7 @@ export default function Create({ auth }) {
                   value={data.email}
                   className="mt-1 block w-full"
                   autoComplete="email"
-                  placeholder="Enter email address"
+                  placeholder="user@example.com"
                   required
                   onChange={(e) => setData("email", e.target.value)}
                   onBlur={(e) => {
