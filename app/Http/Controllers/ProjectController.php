@@ -7,8 +7,9 @@ use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
 use App\Http\Resources\ProjectResource;
 use App\Http\Resources\TaskResource;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Log;
 
 class ProjectController extends Controller
 {
@@ -109,15 +110,44 @@ class ProjectController extends Controller
      */
     public function edit(Project $project)
     {
-        //
+        return inertia('Project/Edit', [
+            'project' => new ProjectResource($project),
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
-     */
-    public function update(UpdateProjectRequest $request, Project $project)
+     */ public function update(UpdateProjectRequest $request, Project $project)
     {
-        //
+        try {
+            // Get validated data
+            $data = $request->validated();
+            $data['updated_by'] = Auth::id();
+
+            // Handle image upload if present
+            if ($request->hasFile('image')) {
+                $image = $request->file('image');
+
+                // Delete old image directory if exists
+                if ($project->image_path && Storage::disk('public')->exists(dirname($project->image_path))) {
+                    Storage::disk('public')->deleteDirectory(dirname($project->image_path));
+                }
+
+                // Store new image
+                $data['image_path'] = $image->store('projects/' . uniqid(), 'public');
+            }
+
+            // Update project
+            $project->update($data);
+
+            return to_route('project.index')
+            ->with('success', value: 'Project "' . $project->name . '" was updated');
+        } catch (\Exception $e) {
+            Log::error('Project update failed: ' . $e->getMessage());
+
+            return to_route('project.index')
+            ->with('error', 'Failed to update project. Please try again.');
+        }
     }
 
     /**
@@ -127,7 +157,10 @@ class ProjectController extends Controller
     {
         $name = $project->name;
         $project->delete();
-
+        if ($project->image_path) {
+            Storage::disk('public')->deleteDirectory(dirname
+            ($project->image_path));
+        }
         return to_route('project.index')
         ->with('success', value: 'Project "' . $name . '" was deleted');
     }

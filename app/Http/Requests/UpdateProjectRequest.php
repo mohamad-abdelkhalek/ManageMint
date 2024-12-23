@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests;
 
+use App\Enums\ProjectStatus;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateProjectRequest extends FormRequest
 {
@@ -11,7 +13,7 @@ class UpdateProjectRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +24,15 @@ class UpdateProjectRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            "name" => [
+                "required",
+                "max:255",
+                Rule::unique('projects')->ignore($this->project)
+            ],
+            "image" => ["nullable", "image", "mimes:jpeg,png,jpg,gif", "max:2048"],
+            "description" => ["nullable", "string"],
+            "due_date" => ["nullable", "date"],
+            "status" => ["required", Rule::enum(ProjectStatus::class)],
         ];
     }
 }
