@@ -1,7 +1,5 @@
 import Pagination from "@/Components/Pagination";
-import SelectInput from "@/Components/SelectInput";
 import TextInput from "@/Components/TextInput";
-import { USER_STATUS_CLASS_MAP, USER_STATUS_TEXT_MAP } from "@/constants.js";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, Link, router } from "@inertiajs/react";
 import TableHeading from "@/Components/TableHeading";
@@ -165,9 +163,7 @@ export default function Index({ auth, users, queryParams, success }) {
                         <th className="px-3 py-2 text-gray-100 text-nowrap">
                           {user.name}
                         </th>
-                        <td className="px-3 py-2">
-                        {user.email}
-                        </td>
+                        <td className="px-3 py-2">{user.email}</td>
                         <td className="px-3 py-2 text-nowrap">
                           {user.created_at}
                         </td>
