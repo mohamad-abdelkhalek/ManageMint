@@ -159,7 +159,11 @@ export default function Create({ auth, projects, users }) {
                   onChange={(e) => setData("assigned_user_id", e.target.value)}
                 >
                   <option value="">Select User</option>
-                  <option value="">TODO</option>
+                  {users.data.map((user) => (
+                    <option value={user.id} key={user.id}>
+                      {user.name}
+                    </option>
+                  ))}
                 </SelectInput>
                 <InputError
                   message={errors.assigned_user_id}
