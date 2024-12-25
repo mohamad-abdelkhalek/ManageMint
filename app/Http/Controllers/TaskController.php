@@ -23,7 +23,7 @@ class TaskController extends Controller
     {
         $validated = request()->validate([
             'sort_field' => 'in:id,name,status,created_at',
-            'sort_direction' => 'in:asc,desc',
+            'sort_direction' => 'in:desc,asc',
             'name' => 'nullable|string',
             'status' => 'nullable|string',
         ]);
@@ -63,7 +63,6 @@ class TaskController extends Controller
     public function create()
     {
         $projects = Project::query()
-        ->select(['name']) // Select only needed columns
         ->orderBy('name')
         ->get();
 

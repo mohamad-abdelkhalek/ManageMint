@@ -30,7 +30,7 @@ class StoreTaskRequest extends FormRequest
             "description" => ["nullable", "string"],  // Made nullable as description can be empty
             "due_date" => ["nullable", "date"],  // Optional date field
             "project_id" => ["required", "exists:projects,id"],
-            "assigned_user_id" => ["nullable", "exists:users,id"],
+            "assigned_user_id" => ["required", "exists:users,id"],
 
             "status" => [
                 "required",
