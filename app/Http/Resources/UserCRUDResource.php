@@ -8,6 +8,9 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 class UserCRUDResource extends JsonResource
 {
+
+    public static $wrap = false;
+
     /**
      * Transform the resource into an array.
      *
@@ -15,17 +18,12 @@ class UserCRUDResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        $timezone = $request->header('User-Timezone', 'UTC');
-        if (!in_array($timezone, timezone_identifiers_list())) {
-            $timezone = 'UTC';
-        }
 
         return [
             "id" => $this->id,
             "name" => $this->name,
             "email" => $this->email,
             "created_at" => Carbon::parse($this->created_at)
-                ->setTimezone($timezone)
                 ->format("Y-m-d H:i:s"),
         ];
     }

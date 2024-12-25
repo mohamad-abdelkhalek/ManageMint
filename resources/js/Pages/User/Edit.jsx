@@ -5,15 +5,19 @@ import TextAreaInput from "@/Components/TextAreaInput";
 import TextInput from "@/Components/TextInput";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, Link, useForm } from "@inertiajs/react";
+import { useState } from "react";
+import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';
 
 export default function Edit({ auth, user }) {
+
+  const [showPassword, setShowPassword] = useState(false);
+
   // Initial form setup with existing user data
   const { data, setData, post, errors, reset, processing } = useForm({
-    image: null, // Change to null since it's a file
     name: user.name || "",
-    status: user.status || "",
-    description: user.description || "",
-    due_date: user.due_date || "",
+    email: user.email || "",
+    password: "",
+    password_confirmation: "",
     _method: "PUT", // Add this for method spoofing
   });
 
@@ -69,30 +73,6 @@ export default function Edit({ auth, user }) {
               className="p-4 sm:p-8 bg-white dark:bg-gray-800
                 shadow sm:rounded-lg"
             >
-              {user.image_path && (
-                <div className="mb-4">
-                  <img
-                    src={user.image_path}
-                    alt="User Image"
-                    className="w-64"
-                  />
-                </div>
-              )}
-              <div>
-                <InputLabel
-                  htmlFor="user_image_path"
-                  value="User Image"
-                />
-                <TextInput
-                  id="user_image_path"
-                  type="file"
-                  name="image"
-                  className="mt-1 block w-full"
-                  onChange={handleImageChange}
-                />
-                <InputError message={errors.image} className="mt-2" />
-              </div>
-
               <div className="mt-4">
                 <InputLabel htmlFor="user_name" value="User Name" />
                 <TextInput
@@ -108,51 +88,93 @@ export default function Edit({ auth, user }) {
               </div>
 
               <div className="mt-4">
-                <InputLabel
-                  htmlFor="user_description"
-                  value="User Description"
-                />
-
-                <TextAreaInput
-                  id="user_description"
-                  name="description"
-                  value={data.description}
-                  className="mt-1 block w-full"
-                  onChange={(e) => setData("description", e.target.value)}
-                />
-                <InputError message={errors.description} className="mt-2" />
-              </div>
-
-              <div className="mt-4">
-                <InputLabel
-                  htmlFor="user_due_date"
-                  value="User Deadline"
-                />
+                <InputLabel htmlFor="user_email" value="User Email" />
                 <TextInput
-                  id="user_due_date"
-                  type="date"
-                  name="due_date"
-                  value={data.due_date}
+                  id="user_email"
+                  type="email"
+                  name="email"
+                  value={data.email}
                   className="mt-1 block w-full"
-                  onChange={(e) => setData("due_date", e.target.value)}
+                  autoComplete="email"
+                  placeholder="user@example.com"
+                  required
+                  onChange={(e) => setData("email", e.target.value)}
+                  onBlur={(e) => {
+                    // Client-side email validation
+                    const isValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(
+                      e.target.value
+                    );
+                    if (!isValid && e.target.value) {
+                      setErrors((prev) => ({
+                        ...prev,
+                        email: "Please enter a valid email address",
+                      }));
+                    }
+                  }}
                 />
-                <InputError message={errors.due_date} className="mt-2" />
+                <InputError message={errors.email} className="mt-2" />
               </div>
 
               <div className="mt-4">
-                <InputLabel htmlFor="user_status" value="User Status" />
-                <SelectInput
-                  id="user_status"
-                  name="status"
-                  className="mt-1 block w-full"
-                  onChange={(e) => setData("status", e.target.value)}
-                >
-                  <option value="">Select Status</option>
-                  <option value="pending">Pending</option>
-                  <option value="in_progress">In Progress</option>
-                  <option value="completed">Completed</option>
-                </SelectInput>
-                <InputError message={errors.user_status} className="mt-2" />
+                <InputLabel htmlFor="user_password" value="Password" />
+                <div className="relative">
+                  <TextInput
+                    id="user_password"
+                    type={showPassword ? "text" : "password"}
+                    name="password"
+                    value={data.password}
+                    className="mt-1 block w-full pr-10"
+                    autoComplete="new-password"
+                    onChange={(e) => setData("password", e.target.value)}
+                  />
+                  <button
+                    type="button"
+                    className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700"
+                    onClick={() => setShowPassword(!showPassword)}
+                  >
+                    {showPassword ? (
+                      <EyeSlashIcon className="h-5 w-5" />
+                    ) : (
+                      <EyeIcon className="h-5 w-5" />
+                    )}
+                  </button>
+                </div>
+                <InputError message={errors.password} className="mt-2" />
+              </div>
+
+              <div className="mt-4">
+                <InputLabel
+                  htmlFor="user_password_confirmation"
+                  value="Confirm Password"
+                />
+                <div className="relative">
+                  <TextInput
+                    id="user_password_confirmation"
+                    type={showPassword ? "text" : "password"}
+                    name="password_confirmation"
+                    value={data.password_confirmation}
+                    className="mt-1 block w-full pr-10"
+                    autoComplete="new-password"
+                    onChange={(e) =>
+                      setData("password_confirmation", e.target.value)
+                    }
+                  />
+                  <button
+                    type="button"
+                    className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700"
+                    onClick={() => setShowPassword(!showPassword)}
+                  >
+                    {showPassword ? (
+                      <EyeSlashIcon className="h-5 w-5" />
+                    ) : (
+                      <EyeIcon className="h-5 w-5" />
+                    )}
+                  </button>
+                </div>
+                <InputError
+                  message={errors.password_confirmation}
+                  className="mt-2"
+                />
               </div>
 
               <div className="mt-6 mb-0 flex justify-end gap-4">
