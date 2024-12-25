@@ -6,7 +6,7 @@ import TextInput from "@/Components/TextInput";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, Link, useForm } from "@inertiajs/react";
 
-export default function Create({ auth }) {
+export default function Create({ auth, projects, users }) {
   const { data, setData, post, errors, reset } = useForm({
     image: "",
     name: "",
@@ -51,7 +51,11 @@ export default function Create({ auth }) {
                   onChange={(e) => setData("project_id", e.target.value)}
                 >
                   <option value="">Select Project</option>
-                  <option value="low">TODO</option>
+                  {projects.data.map((project) => (
+                    <option value={project.id} key={project.id}>
+                      {project.name}
+                    </option>
+                  ))}
                 </SelectInput>
                 <InputError message={errors.project_id} className="mt-2" />
               </div>
