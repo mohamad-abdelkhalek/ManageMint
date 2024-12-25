@@ -43,10 +43,21 @@ export default function Create({ auth }) {
                 shadow sm:rounded-lg"
             >
               <div>
-                <InputLabel
-                  htmlFor="task_image_path"
-                  value="Task Image"
-                />
+                <InputLabel htmlFor="task_project_id" value="Project" />
+                <SelectInput
+                  id="task_project_id"
+                  name="project_id"
+                  className="mt-1 block w-full"
+                  onChange={(e) => setData("project_id", e.target.value)}
+                >
+                  <option value="">Select Project</option>
+                  <option value="low">TODO</option>
+                </SelectInput>
+                <InputError message={errors.project_id} className="mt-2" />
+              </div>
+
+              <div className="mt-4">
+                <InputLabel htmlFor="task_image_path" value="Task Image" />
                 <TextInput
                   id="task_image_path"
                   type="file"
@@ -88,10 +99,7 @@ export default function Create({ auth }) {
               </div>
 
               <div className="mt-4">
-                <InputLabel
-                  htmlFor="task_due_date"
-                  value="Task Deadline"
-                />
+                <InputLabel htmlFor="task_due_date" value="Task Deadline" />
                 <TextInput
                   id="task_due_date"
                   type="date"
@@ -117,6 +125,42 @@ export default function Create({ auth }) {
                   <option value="completed">Completed</option>
                 </SelectInput>
                 <InputError message={errors.task_status} className="mt-2" />
+              </div>
+
+              <div className="mt-4">
+                <InputLabel htmlFor="task_priority" value="Task Priority" />
+                <SelectInput
+                  id="task_priority"
+                  name="priority"
+                  className="mt-1 block w-full"
+                  onChange={(e) => setData("priority", e.target.value)}
+                >
+                  <option value="">Select Priority</option>
+                  <option value="low">Low</option>
+                  <option value="medium">Medium</option>
+                  <option value="high">High</option>
+                </SelectInput>
+                <InputError message={errors.priority} className="mt-2" />
+              </div>
+
+              <div className="mt-4">
+                <InputLabel
+                  htmlFor="task_assigned_user"
+                  value="Assigned User"
+                />
+                <SelectInput
+                  id="task_assigned_user"
+                  name="assigned_user_id"
+                  className="mt-1 block w-full"
+                  onChange={(e) => setData("assigned_user_id", e.target.value)}
+                >
+                  <option value="">Select User</option>
+                  <option value="">TODO</option>
+                </SelectInput>
+                <InputError
+                  message={errors.assigned_user_id}
+                  className="mt-2"
+                />
               </div>
 
               <div className="mt-6 mb-0 flex justify-end gap-4">
