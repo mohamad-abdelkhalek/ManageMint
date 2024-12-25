@@ -64,7 +64,7 @@ class UserController extends Controller
 
         // Redirect with success message
         return to_route('user.index')
-        ->with('success', 'User was created successfully');
+            ->with('success', 'User was created successfully');
     }
 
 
@@ -96,7 +96,7 @@ class UserController extends Controller
             $data = $request->validated();
             $password = $data['password'] ?? null;
 
-            if($password) {
+            if ($password) {
                 $data['password'] = bcrypt($password);
             } else {
                 unset($data['password']);
@@ -106,12 +106,12 @@ class UserController extends Controller
             $user->update($data);
 
             return to_route('user.index')
-            ->with('success', value: 'User "' . $user->name . '" was updated');
+                ->with('success', value: 'User "' . $user->name . '" was updated');
         } catch (\Exception $e) {
             Log::error('User update failed: ' . $e->getMessage());
 
             return to_route('user.index')
-            ->with('error', 'Failed to update user. Please try again.');
+                ->with('error', 'Failed to update user. Please try again.');
         }
     }
 
@@ -120,6 +120,10 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        //
+        $name = $user->name;
+        $user->delete();
+
+        return to_route('user.index')
+            ->with('success', value: 'User "' . $name . '" was deleted');
     }
 }
