@@ -29,7 +29,7 @@ class TaskController extends Controller
         ]);
 
         $sortField = $validated['sort_field'] ?? 'id';
-        $sortDirection = $validated['sort_direction'] ?? 'asc';
+        $sortDirection = $validated['sort_direction'] ?? 'desc';
 
         $query = Task::query();
 
@@ -66,7 +66,9 @@ class TaskController extends Controller
         ->orderBy('name')
         ->get();
 
-        $users = User::all();
+        $users = User::query()
+        ->orderBy('name')
+        ->get();
 
         return inertia("Task/Create", [
             'projects' => ProjectResource::collection($projects),
@@ -132,8 +134,18 @@ class TaskController extends Controller
      */
     public function edit(Task $task)
     {
-        return inertia('Task/Edit', [
+        $projects = Project::query()
+        ->orderBy('name')
+        ->get();
+
+        $users = User::query()
+        ->orderBy('name')
+        ->get();
+
+        return inertia("Task/Edit", [
             'task' => new TaskResource($task),
+            'projects' => ProjectResource::collection($projects),
+            'users'=> UserResource::collection($users),
         ]);
     }
 

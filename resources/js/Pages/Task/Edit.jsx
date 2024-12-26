@@ -6,7 +6,7 @@ import TextInput from "@/Components/TextInput";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, Link, useForm } from "@inertiajs/react";
 
-export default function Edit({ auth, task }) {
+export default function Edit({ auth, task, users, projects }) {
   // Initial form setup with existing task data
   const { data, setData, post, errors, reset, processing } = useForm({
     image: null, // Change to null since it's a file
@@ -14,6 +14,9 @@ export default function Edit({ auth, task }) {
     status: task.status || "",
     description: task.description || "",
     due_date: task.due_date || "",
+    project_id: task.project_id || "",
+    priority: task.priority || "",
+    assigned_user_id: task.assigned_user_id || "",
     _method: "PUT", // Add this for method spoofing
   });
 
@@ -79,16 +82,32 @@ export default function Edit({ auth, task }) {
                 </div>
               )}
               <div>
-                <InputLabel
-                  htmlFor="task_image_path"
-                  value="Task Image"
-                />
+                <InputLabel htmlFor="task_project_id" value="Project" />
+                <SelectInput
+                  id="task_project_id"
+                  name="project_id"
+                  value={data.project_id}
+                  className="mt-1 block w-full"
+                  onChange={(e) => setData("project_id", e.target.value)}
+                >
+                  <option value="">Select Project</option>
+                  {projects.data.map((project) => (
+                    <option value={project.id} key={project.id}>
+                      {project.name}
+                    </option>
+                  ))}
+                </SelectInput>
+                <InputError message={errors.project_id} className="mt-2" />
+              </div>
+
+              <div className="mt-4">
+                <InputLabel htmlFor="task_image_path" value="Task Image" />
                 <TextInput
                   id="task_image_path"
                   type="file"
                   name="image"
                   className="mt-1 block w-full"
-                  onChange={handleImageChange}
+                  onChange={(e) => setData("image", e.target.files[0])}
                 />
                 <InputError message={errors.image} className="mt-2" />
               </div>
@@ -124,10 +143,7 @@ export default function Edit({ auth, task }) {
               </div>
 
               <div className="mt-4">
-                <InputLabel
-                  htmlFor="task_due_date"
-                  value="Task Deadline"
-                />
+                <InputLabel htmlFor="task_due_date" value="Task Deadline" />
                 <TextInput
                   id="task_due_date"
                   type="date"
@@ -153,6 +169,46 @@ export default function Edit({ auth, task }) {
                   <option value="completed">Completed</option>
                 </SelectInput>
                 <InputError message={errors.task_status} className="mt-2" />
+              </div>
+
+              <div className="mt-4">
+                <InputLabel htmlFor="task_priority" value="Task Priority" />
+                <SelectInput
+                  id="task_priority"
+                  name="priority"
+                  className="mt-1 block w-full"
+                  onChange={(e) => setData("priority", e.target.value)}
+                >
+                  <option value="">Select Priority</option>
+                  <option value="low">Low</option>
+                  <option value="medium">Medium</option>
+                  <option value="high">High</option>
+                </SelectInput>
+                <InputError message={errors.priority} className="mt-2" />
+              </div>
+
+              <div className="mt-4">
+                <InputLabel
+                  htmlFor="task_assigned_user"
+                  value="Assigned User"
+                />
+                <SelectInput
+                  id="task_assigned_user"
+                  name="assigned_user_id"
+                  className="mt-1 block w-full"
+                  onChange={(e) => setData("assigned_user_id", e.target.value)}
+                >
+                  <option value="">Select User</option>
+                  {users.data.map((user) => (
+                    <option value={user.id} key={user.id}>
+                      {user.name}
+                    </option>
+                  ))}
+                </SelectInput>
+                <InputError
+                  message={errors.assigned_user_id}
+                  className="mt-2"
+                />
               </div>
 
               <div className="mt-6 mb-0 flex justify-end gap-4">
