@@ -97,7 +97,7 @@ export default function Show({ auth, task, tasks, queryParams }) {
                       {task.updatedBy.name}
                     </p>
                   </div>
-                  <div>
+                  <div className="mt-4">
                     <label className="font-bold text-lg">Project</label>
                     <p className="mt-1 text-gray-600 dark:text-gray-400">
                       <Link href={route("project.show", task.project.id)}>
@@ -105,7 +105,7 @@ export default function Show({ auth, task, tasks, queryParams }) {
                       </Link>
                     </p>
                   </div>
-                  <div>
+                  <div className="mt-4">
                     <label className="font-bold text-lg">Assigned User</label>
                     <p className="mt-1 text-gray-600 dark:text-gray-400">
                       {task.assignedUser.name}
