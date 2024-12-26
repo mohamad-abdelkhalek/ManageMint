@@ -6,9 +6,8 @@ import {
 } from "@/constants.js";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, Link } from "@inertiajs/react";
-import TasksTable from "../Task/TasksTable";
 
-export default function Show({ auth, task, tasks, queryParams }) {
+export default function Show({ auth, task }) {
   return (
     <AuthenticatedLayout
       user={auth.user}
