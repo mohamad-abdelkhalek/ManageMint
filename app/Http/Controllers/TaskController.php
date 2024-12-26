@@ -179,4 +179,42 @@ class TaskController extends Controller
         return to_route('task.index')
             ->with('success', value: 'Task "' . $name . '" was deleted');
     }
+
+    public function myTasks() {
+        $validated = request()->validate([
+            'sort_field' => 'in:id,name,status,created_at',
+            'sort_direction' => 'in:desc,asc',
+            'name' => 'nullable|string',
+            'status' => 'nullable|string',
+        ]);
+
+        $sortField = $validated['sort_field'] ?? 'id';
+        $sortDirection = $validated['sort_direction'] ?? 'desc';
+
+        $user = Auth::user();
+        $query = Task::query()->where('assigned_user_id', $user->id);
+
+        if ($validated['name'] ?? false) {
+            $query->where('name', 'like', '%' . $validated['name'] . '%');
+        }
+
+        if ($validated['status'] ?? false) {
+            $query->where('status', $validated['status']);
+        }
+
+        $tasks = $query->orderBy($sortField, $sortDirection)
+            ->paginate(10)
+            ->onEachSide(1);
+
+        return inertia("Task/Index", [
+            "tasks" => TaskResource::collection($tasks),
+            'queryParams' => [
+                'sort_field' => $sortField,
+                'sort_direction' => $sortDirection,
+                'name' => $validated['name'] ?? '',
+                'status' => $validated['status'] ?? '',
+            ],
+            'success' => session('success'),
+        ]);
+    }
 }
