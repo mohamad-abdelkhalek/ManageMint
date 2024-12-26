@@ -1,6 +1,11 @@
-import { TASK_PRIORITY_CLASS_MAP, TASK_PRIORITY_TEXT_MAP, TASK_STATUS_CLASS_MAP, TASK_STATUS_TEXT_MAP } from "@/constants.js";
+import {
+  TASK_PRIORITY_CLASS_MAP,
+  TASK_PRIORITY_TEXT_MAP,
+  TASK_STATUS_CLASS_MAP,
+  TASK_STATUS_TEXT_MAP,
+} from "@/constants.js";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { Head } from "@inertiajs/react";
+import { Head, Link } from "@inertiajs/react";
 import TasksTable from "../Task/TasksTable";
 
 export default function Show({ auth, task, tasks, queryParams }) {
@@ -92,6 +97,15 @@ export default function Show({ auth, task, tasks, queryParams }) {
                       {task.updatedBy.name}
                     </p>
                   </div>
+                  <div>
+                    <label className="font-bold text-lg">Project</label>
+                    <p className="mt-1 text-gray-600 dark:text-gray-400">
+                      <Link href={route("project.show", task.project.id)}>
+                        {task.project.name}
+                      </Link>
+                    </p>
+                  </div>
+                            
                 </div>
               </div>
 
