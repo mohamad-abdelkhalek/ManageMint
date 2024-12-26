@@ -6,7 +6,7 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head } from "@inertiajs/react";
 import TasksTable from "../Task/TasksTable";
 
-export default function Show({ auth, project, tasks, queryParams }) {
+export default function Show({ auth, success, project, tasks, queryParams }) {
   return (
     <AuthenticatedLayout
       user={auth.user}
@@ -110,6 +110,7 @@ export default function Show({ auth, project, tasks, queryParams }) {
               ) : tasks?.data?.length > 0 ? (
                 <TasksTable
                   tasks={tasks}
+                  success={success}
                   queryParams={queryParams}
                   hideProjectColumn={true}
                 />

@@ -53,6 +53,7 @@ class TaskController extends Controller
                 'name' => $validated['name'] ?? '',
                 'status' => $validated['status'] ?? '',
             ],
+            'success' => session('success'),
         ]);
     }
 
