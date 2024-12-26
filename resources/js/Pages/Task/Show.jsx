@@ -1,7 +1,4 @@
-import {
-  TASK_STATUS_CLASS_MAP,
-  TASK_STATUS_TEXT_MAP,
-} from "@/constants.js";
+import { TASK_PRIORITY_CLASS_MAP, TASK_PRIORITY_TEXT_MAP, TASK_STATUS_CLASS_MAP, TASK_STATUS_TEXT_MAP } from "@/constants.js";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head } from "@inertiajs/react";
 import TasksTable from "../Task/TasksTable";
@@ -55,6 +52,20 @@ export default function Show({ auth, task, tasks, queryParams }) {
                       </span>
                     </p>
                   </div>
+
+                  <div className="mt-4">
+                    <label className="font-bold text-lg">Task Priority</label>
+                    <p className="mt-1 text-gray-600 dark:text-gray-400">
+                      <span
+                        className={`px-2 py-1 rounded text-white ${
+                          TASK_PRIORITY_CLASS_MAP[task.priority]
+                        }`}
+                      >
+                        {TASK_PRIORITY_TEXT_MAP[task.priority]}
+                      </span>
+                    </p>
+                  </div>
+
                   <div className="mt-4">
                     <label className="font-bold text-lg">Created By</label>
                     <p className="mt-1 text-gray-600 dark:text-gray-400">
@@ -90,34 +101,6 @@ export default function Show({ auth, task, tasks, queryParams }) {
                   {task.description}
                 </p>
               </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div className="pb-12">
-        <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
-          <div className="overflow-hidden bg-white shadow-sm rounded-lg dark:bg-gray-800">
-            <div className="p-6 text-gray-900 dark:text-gray-100">
-              {tasks?.isLoading ? (
-                <div className="flex justify-center">
-                  <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900 dark:border-white" />
-                </div>
-              ) : tasks?.error ? (
-                <div className="text-red-500">
-                  Error loading tasks: {tasks.error.message}
-                </div>
-              ) : tasks?.data?.length > 0 ? (
-                <TasksTable
-                  tasks={tasks}
-                  queryParams={queryParams}
-                  hideTaskColumn={true}
-                />
-              ) : (
-                <p className="text-center text-gray-500 dark:text-gray-400">
-                  No tasks available for this task.
-                </p>
-              )}
             </div>
           </div>
         </div>
