@@ -29,6 +29,7 @@ class TaskResource extends JsonResource
             'priority' => $this->priority,
             'image_path' => $this->image_path ?
              Storage::url($this->image_path) : '',
+             'project_id' => $this->project_id,
             'project' => new ProjectResource(resource: $this->project),
             'assignedUser' => $this->assignedUser ?
              new UserResource(resource: $this->assignedUser) : null,
