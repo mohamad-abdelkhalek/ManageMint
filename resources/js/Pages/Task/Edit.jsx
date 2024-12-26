@@ -160,6 +160,7 @@ export default function Edit({ auth, task, users, projects }) {
                 <SelectInput
                   id="task_status"
                   name="status"
+                  value={data.status}
                   className="mt-1 block w-full"
                   onChange={(e) => setData("status", e.target.value)}
                 >
@@ -176,6 +177,7 @@ export default function Edit({ auth, task, users, projects }) {
                 <SelectInput
                   id="task_priority"
                   name="priority"
+                  value={data.priority}
                   className="mt-1 block w-full"
                   onChange={(e) => setData("priority", e.target.value)}
                 >
@@ -195,6 +197,7 @@ export default function Edit({ auth, task, users, projects }) {
                 <SelectInput
                   id="task_assigned_user"
                   name="assigned_user_id"
+                  value={data.assigned_user_id}
                   className="mt-1 block w-full"
                   onChange={(e) => setData("assigned_user_id", e.target.value)}
                 >
