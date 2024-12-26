@@ -131,11 +131,22 @@ export default function Show({ auth, task }) {
                 </div>
               </div>
 
-              <div className="mt-4">
-                <label className="font-bold text-lg">Task Description</label>
-                <p className="mt-1 text-gray-600 dark:text-gray-400">
-                  {task.description}
-                </p>
+              <div className="mt-4 space-y-2">
+                <label
+                  htmlFor="task-description"
+                  className="block font-semibold text-lg text-gray-900 dark:text-gray-100"
+                >
+                  Task Description
+                </label>
+
+                <div
+                  id="task-description"
+                  className="prose prose-gray dark:prose-invert max-w-none"
+                >
+                  <p className="text-gray-600 dark:text-gray-400 whitespace-pre-wrap break-words">
+                    {task.description || "No description provided"}
+                  </p>
+                </div>
               </div>
             </div>
           </div>
