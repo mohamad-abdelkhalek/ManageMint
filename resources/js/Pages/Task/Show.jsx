@@ -96,11 +96,29 @@ export default function Show({ auth, task }) {
                       {task.updatedBy.name}
                     </p>
                   </div>
-                  <div className="mt-4">
-                    <label className="font-bold text-lg">Project</label>
-                    <p className="mt-1 text-gray-600 dark:text-gray-400">
-                      <Link href={route("project.show", task.project.id)}>
+                  <div className="mt-4 space-y-2">
+                    <label
+                      htmlFor="project-link"
+                      className="block font-semibold text-lg text-gray-900 dark:text-gray-100"
+                    >
+                      Project
+                    </label>
+
+                    <p className="text-gray-600 dark:text-gray-400">
+                      <Link
+                        id="project-link"
+                        href={route("project.show", task.project.id)}
+                        className="inline-flex items-center hover:text-primary-600 dark:hover:text-primary-400 transition-colors duration-200"
+                      >
                         {task.project.name}
+                        <svg
+                          className="w-4 h-4 ml-1"
+                          viewBox="0 0 20 20"
+                          fill="currentColor"
+                        >
+                          <path d="M11 3a1 1 0 100 2h2.586l-6.293 6.293a1 1 0 101.414 1.414L15 6.414V9a1 1 0 102 0V4a1 1 0 00-1-1h-5z" />
+                          <path d="M5 5a2 2 0 00-2 2v8a2 2 0 002 2h8a2 2 0 002-2v-3a1 1 0 10-2 0v3H5V7h3a1 1 0 000-2H5z" />
+                        </svg>
                       </Link>
                     </p>
                   </div>
