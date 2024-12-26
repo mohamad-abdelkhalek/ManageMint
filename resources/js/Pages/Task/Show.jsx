@@ -105,7 +105,12 @@ export default function Show({ auth, task, tasks, queryParams }) {
                       </Link>
                     </p>
                   </div>
-                            
+                  <div>
+                    <label className="font-bold text-lg">Assigned User</label>
+                    <p className="mt-1 text-gray-600 dark:text-gray-400">
+                      {task.assignedUser.name}
+                    </p>
+                  </div>
                 </div>
               </div>
 
