@@ -8,6 +8,7 @@ export default function Dashboard({
   myProgressTasks,
   totalCompletedTasks,
   myCompletedTasks,
+  activeTasks
 }) {
   return (
     <AuthenticatedLayout
@@ -54,6 +55,38 @@ export default function Dashboard({
                 <span className="mr-2">{myCompletedTasks}</span>/
                 <span className="ml-2">{totalCompletedTasks}</span>
               </p>
+            </div>
+          </div>
+        </div>
+
+        <div className="mx-auto max-w-7xl sm:px-6 lg:px-8 mt-4">
+          <div className="overflow-hidden bg-white shadow-sm sm:rounded-lg dark:bg-gray-800">
+            <div className="p-6 text-gray-900 dark:text-gray-100">
+              <h3 className="text-gray-200 text-xl font-semibold">
+                My Active Tasks
+              </h3>
+              <table>
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Project Name</th>
+                    <th>Name</th>
+                    <th>Status</th>
+                    <th>Due Date</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {activeTasks.data.map(task => (
+                    <tr key={task.id}>
+                      <td>{task.id}</td>
+                      <td>{task.project.name}</td>
+                      <td>{task.name}</td>
+                      <td>{task.status}</td>
+                      <td>{task.due_date}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
           </div>
         </div>

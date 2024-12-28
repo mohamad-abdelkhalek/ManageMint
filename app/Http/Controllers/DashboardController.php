@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\TaskResource;
 use App\Models\Task;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -40,6 +41,12 @@ class DashboardController extends Controller
             ->where('assigned_user_id', $user->id)
             ->count();
 
+        $activeTasks = Task::query()
+            ->whereIn('status', ['pending', 'in_progress',])
+            ->limit(10)
+            ->get();
+
+        $activeTasks = TaskResource::collection($activeTasks);
 
         return inertia(
             'Dashboard',
@@ -49,7 +56,8 @@ class DashboardController extends Controller
                 'totalProgressTasks',
                 'myProgressTasks',
                 'totalCompletedTasks',
-                'myCompletedTasks'
+                'myCompletedTasks',
+                'activeTasks'
             )
         );
     }
