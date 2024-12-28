@@ -1,6 +1,6 @@
 import { TASK_STATUS_CLASS_MAP, TASK_STATUS_TEXT_MAP } from "@/constants";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { Head } from "@inertiajs/react";
+import { Head, Link } from "@inertiajs/react";
 
 export default function Dashboard({
   totalPendingTasks,
@@ -87,7 +87,11 @@ export default function Dashboard({
                   {activeTasks.data.map((task) => (
                     <tr key={task.id}>
                       <td className="px-3 py-2">{task.id}</td>
-                      <td className="px-3 py-2">{task.project.name}</td>
+                      <td className="px-3 py-2 text-white hover:underline">
+                        <Link href={route("project.show", task.project.id)}>
+                          {task.project.name}
+                        </Link>
+                      </td>
                       <td className="px-3 py-2">{task.name}</td>
                       <td className="px-3 py-2">
                         <span
