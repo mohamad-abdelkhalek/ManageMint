@@ -43,6 +43,7 @@ class DashboardController extends Controller
 
         $activeTasks = Task::query()
             ->whereIn('status', ['pending', 'in_progress',])
+            ->where('assigned_user_id', $user->id)
             ->limit(10)
             ->get();
 
