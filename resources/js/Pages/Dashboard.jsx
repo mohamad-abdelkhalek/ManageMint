@@ -1,7 +1,14 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head } from "@inertiajs/react";
 
-export default function Dashboard({ totalPendingTasks, myPendingTasks }) {
+export default function Dashboard({
+  totalPendingTasks,
+  myPendingTasks,
+  totalProgressTasks,
+  myProgressTasks,
+  totalCompletedTasks,
+  myCompletedTasks,
+}) {
   return (
     <AuthenticatedLayout
       header={
@@ -25,9 +32,28 @@ export default function Dashboard({ totalPendingTasks, myPendingTasks }) {
               </p>
             </div>
           </div>
+
           <div className="overflow-hidden bg-white shadow-sm sm:rounded-lg dark:bg-gray-800">
             <div className="p-6 text-gray-900 dark:text-gray-100">
-              You're logged in!
+              <h3 className="text-blue-500 text-2xl font-semibold">
+                In Progress Tasks
+              </h3>
+              <p className="text-xl mt-4">
+                <span className="mr-2">{myProgressTasks}</span>/
+                <span className="ml-2">{totalProgressTasks}</span>
+              </p>
+            </div>
+          </div>
+
+          <div className="overflow-hidden bg-white shadow-sm sm:rounded-lg dark:bg-gray-800">
+            <div className="p-6 text-gray-900 dark:text-gray-100">
+              <h3 className="text-green-500 text-2xl font-semibold">
+                Completed Tasks
+              </h3>
+              <p className="text-xl mt-4">
+                <span className="mr-2">{myCompletedTasks}</span>/
+                <span className="ml-2">{totalCompletedTasks}</span>
+              </p>
             </div>
           </div>
         </div>
