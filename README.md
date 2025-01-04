@@ -12,7 +12,6 @@
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind-3.0-38B2AC?logo=tailwind-css)](https://tailwindcss.com)
 [![Inertia.js](https://img.shields.io/badge/Inertia.js-1.0-6875F5)](https://inertiajs.com)
 
-[**Demo**](https://demo.managemint.dev) | [**Documentation**](https://docs.managemint.dev) | [**Report Bug**](https://github.com/yourusername/managemint/issues) | [**Request Feature**](https://github.com/yourusername/managemint/issues)
 
 </div>
 
@@ -91,8 +90,8 @@ Ensure the following tools are installed:
 
 1. **Clone & Install Dependencies**
    ```bash
-   git clone https://github.com/yourusername/managemint.git
-   cd managemint
+   git clone https://github.com/mohamad-abdelkhalek/ManageMint.git
+   cd ManageMint
 
    # Install PHP dependencies
    composer install
@@ -135,15 +134,11 @@ Ensure the following tools are installed:
 
 Visit `http://localhost:8000` to access the application.
 
-### **Production Deployment**
-
-For production instructions, see our [deployment guide](docs/deployment.md).
 
 ---
 
 ## 📖 **Documentation**
 
-Comprehensive documentation is available at [docs.managemint.dev](https://docs.managemint.dev):
 
 - Getting Started Guide
 - API Documentation
@@ -192,26 +187,19 @@ Comprehensive documentation is available at [docs.managemint.dev](https://docs.m
 
 ## 🤝 **Contributing**
 
-We love contributions! Check out our [Contributing Guide](CONTRIBUTING.md) for ways to get involved:
+We love contributions!
 
 - Reporting bugs
 - Suggesting features
 - Writing documentation
 - Submitting pull requests
 
-
----
-
-## 📄 **License**
-
-ManageMint is open-source software licensed under the [MIT License](LICENSE).
-
 ---
 
 <div align="center">
 
-Made with ❤️ by the ManageMint Team
+Made with ❤️ by the developer Mohammad Abdelkhalek
 
-[**Website**](https://managemint.dev) | [**Blog**](https://blog.managemint.dev) | [**Roadmap**](https://github.com/yourusername/managemint/projects)
+[**GitHub**](https://github.com/mohamad-abdelkhalek)
 
 </div>
